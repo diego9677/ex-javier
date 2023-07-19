@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de asegurados{% endblock %}
+
+{% block content %}
+<section class="p-4 flex flex-col gap-6">
+    <div class="flex justify-between">
+        <a href="{% url 'asegurado-create' %}"
+            class="p-2 rounded-md bg-blue-600 text-white uppercase text-sm font-medium hover:bg-opacity-70">
+            nuevo
+        </a>
+
+        <form action="." class="flex gap-2 w-1/2">
+            <input type="text"
+                class="w-full px-2 ring-1 ring-neutral-300 text-sm outline-none rounded-md focus:ring-2 focus:ring-blue-500 placeholder:text-neutral-600"
+                placeholder="Buscar...!">
+            <button class="p-2 bg-green-600 rounded-md outline-none hover:bg-opacity-70 text-white">
+                <i class="las la-search"></i>
+            </button>
+        </form>
+    </div>
+
+    <table class="table-auto">
+        <thead>
+            <tr class="text-center uppercase bg-neutral-300">
+                <th>id</th>
+                <th>nombre</th>
+                <th>nacimiento</th>
+                <th>foto</th>
+                <th>certificado</th>
+                <th>cedula</th>
+                <th>asegurado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for asegurado in asegurados %}
+            <tr class="text-center">
+                <td>{{ asegurado.id }}</td>
+                <td>{{ asegurado.persona }}</td>
+                <td>{{ asegurado.fecha_nacimiento }}</td>
+                <td class="w-22">
+                    <a href="{{ asegurado.foto }}" class="flex justify-center">
+                        <img src="{{ asegurado.foto }}" alt="{{ asegurado.foto }}" width="40" height="40"
+                            class="rounded-md w-16 h-16">
+                    </a>
+                </td>
+                <td class="w-22">
+                    <a href="{{ asegurado.certificado_nacimiento }}" class="flex justify-center">
+                        <img src="{{ asegurado.certificado_nacimiento }}" alt="{{ asegurado.certificado_nacimiento }}"
+                            width="40" height="40" class="rounded-md w-16 h-16">
+                    </a>
+                </td>
+                <td class="w-22">
+                    <a href="{{ asegurado.documento_identidad }}" class="flex justify-center">
+                        <img src="{{ asegurado.documento_identidad }}" alt="{{ asegurado.documento_identidad }}"
+                            width="40" height="40" class="rounded-md w-16 h-16">
+                    </a>
+                </td>
+                <td>
+                    {% if asegurado.parent %}
+                    {{ asegurado.parent }}
+                    {% else %}
+                    --
+                    {% endif %}
+                </td>
+                <td class="flex gap-2">
+                    <a href="{% url 'asegurado-update' asegurado.pk %}"
+                        class="mt-2 flex-1 p-1 bg-green-600 hover:bg-opacity-70">
+                        E
+                    </a>
+                    <a class="mt-2 flex-1 p-1 bg-red-600 hover:bg-opacity-70">
+                        E
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}

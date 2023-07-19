@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Lista de asegurados{% endblock %}
+
+{% block content %}
+<section class="p-4">
+    <h2 class="text-2xl font-neutral-800 mb-5 text-center">{% if asegurado %}Editar{% else %}Nuevo{% endif %} Asegurado</h2>
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col w-1/2 gap-6 mx-auto">
+        {% csrf_token %}
+        {{ form.errors }}
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.nombres.label }}</label>
+            {{ form.nombres }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.apellidos.label }}</label>
+            {{ form.apellidos }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.ci.label }}</label>
+            {{ form.ci }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.fecha_nacimiento.label }}</label>
+            {{ form.fecha_nacimiento }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.documento_identidad.label }}</label>
+            {{ form.documento_identidad }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.certificado_nacimiento.label }}</label>
+            {{ form.certificado_nacimiento }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.foto.label }}</label>
+            {{ form.foto }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.parent.label }}</label>
+            {{ form.parent }}
+        </div>
+
+        <div class="flex gap-2">
+            <a href="{% url 'asegurado-list' %}"
+                class="flex-1 p-2 bg-neutral-700 rounded-md text-white hover:bg-opacity-70 text-center">
+                Guardar
+            </a>
+            <button type="submit" class="flex-1 p-2 bg-blue-600 rounded-md text-white hover:bg-opacity-70">
+                Guardar
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}
