@@ -1,7 +1,58 @@
 {% extends 'base.html' %}
 
-{% block title %}Lista de contratos{% endblock %}
+{% block title %}Formulario de contratos{% endblock %}
 
 {% block content %}
-    form
-{% endblock  %}
+<section class="p-4">
+    <h2 class="text-2xl font-neutral-800 mb-5 text-center">{% if object %}Editar{% else %}Nuevo{% endif %} Contrato
+    </h2>
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col w-1/2 gap-6 mx-auto">
+        {% csrf_token %}
+        {{ form.errors }}
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.titulo.label }}</label>
+            {{ form.titulo }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.descripcion.label }}</label>
+            {{ form.descripcion }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.precio_seguro.label }}</label>
+            {{ form.precio_seguro }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.precio_dependiente.label }}</label>
+            {{ form.precio_dependiente }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.fecha_inicio.label }}</label>
+            {{ form.fecha_inicio }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.fecha_fin.label }}</label>
+            {{ form.fecha_fin }}
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label for="">{{ form.estado.label }}</label>
+            {{ form.estado }}
+        </div>
+
+        <div class="flex gap-2">
+            <a href="{% url 'contrato-list' %}"
+                class="flex-1 p-2 bg-neutral-700 rounded-md text-white hover:bg-opacity-70 text-center">
+                Guardar
+            </a>
+            <button type="submit" class="flex-1 p-2 bg-blue-600 rounded-md text-white hover:bg-opacity-70">
+                Guardar
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}

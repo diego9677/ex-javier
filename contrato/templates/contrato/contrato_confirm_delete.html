@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Formulario de contratos{% endblock %}
+
+{% block content %}
+<section class="p-4">
+    <h2 class="text-2xl font-neutral-800 mb-5 text-center">
+        Eliminar Contrato
+    </h2>
+    <form method="POST" enctype="multipart/form-data" class="flex flex-col w-1/2 gap-6 mx-auto">
+        {% csrf_token %}
+        {{ form.errors }}
+
+        <p>Esta seguro de eliminar el "{{ object }}"?</p>
+        {{ form }}
+
+        <div class="flex gap-2">
+            <a href="{% url 'contrato-list' %}"
+                class="flex-1 p-2 bg-neutral-700 rounded-md text-white hover:bg-opacity-70 text-center">
+                Cancelar
+            </a>
+            <button type="submit" class="flex-1 p-2 bg-red-600 rounded-md text-white hover:bg-opacity-70">
+                Si, eliminar
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock %}

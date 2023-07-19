@@ -3,5 +3,50 @@
 {% block title %}Planes de pago{% endblock %}
 
 {% block content %}
-    planes de pago
-{% endblock  %}
+<section class="p-4 flex flex-col gap-6">
+    <div class="flex justify-between">
+        <form action="." class="flex gap-2 w-1/2">
+            <select name="contrato" id="id_contrato"
+            class="rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2">
+            <option>--------</option>
+            {% for contrato in contratos %}
+                <option 
+                    value="{{ contrato.pk }}" 
+                    {% if contrato_id == contrato.pk|slugify %} selected {% endif %}
+                >
+                    {{contrato.titulo }}
+                </option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="p-2 bg-green-600 rounded-md outline-none hover:bg-opacity-70 text-white">
+                <i class="las la-search"></i>
+            </button>
+        </form>
+    </div>
+
+    {% if plan_pago %}
+    <table class="table-auto">
+        <thead>
+            <tr class="text-center uppercase bg-neutral-300">
+                <th>cuota</th>
+                <th>fecha Vencimiento</th>
+                <th>Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plan in plan_pago %}
+            <tr class="text-center">
+                <td class="p-2">{{ forloop.counter }}</td>
+                <td class="p-2">{{ plan.fecha_vencimiento }}</td>
+                <td class="p-2">{{ plan.monto }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif contrato_id %}
+        <div>
+            No se ha encontrado un plan de pago, generar uno <a href="{% url 'generar-plan' contrato_id %}" class="text-blue-600 hover:text-opacity-70">aqui.</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -9,8 +9,8 @@ class Contrato(models.Model):
     precio_seguro = models.DecimalField(max_digits=18, decimal_places=2)
     precio_dependiente = models.DecimalField(max_digits=18, decimal_places=2)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_inicio = models.DateTimeField()
-    fecha_fin = models.DateTimeField()
+    fecha_inicio = models.DateField()
+    fecha_fin = models.DateField()
     estado = models.IntegerField()
 
     def __str__(self) -> str:
@@ -18,7 +18,7 @@ class Contrato(models.Model):
 
 
 class PlanPago(models.Model):
-    fecha_vencimiento = models.DateTimeField()
+    fecha_vencimiento = models.DateField()
     monto = models.DecimalField(
         max_digits=18,
         decimal_places=2,

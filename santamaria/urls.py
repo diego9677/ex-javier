@@ -15,18 +15,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
-from django.conf.urls.static import static
-from asegurado.views import asegurado_list, crear_asegurado, actualizar_asegurado
-from contrato.views import ContratoListView, planes_pago
+from contrato.views import planes_pago, generar_plan_pago
+from django.views.generic import RedirectView
+
+
+class AseguradoRedirect(RedirectView):
+    permanent = False
+    query_string = True
+    pattern_name = 'asegurado-list'
+
 
 urlpatterns = [
-    path('', asegurado_list, name='asegurado-list'),
-    path('asegurado-create/', crear_asegurado, name='asegurado-create'),
-    path('asegurado-update/<int:asegurado_id>',
-         actualizar_asegurado, name='asegurado-update'),
-    path('contratos/', ContratoListView.as_view(), name='contrato-list'),
-    path('planes-pago/', planes_pago, name='planes-pago'),
+    path('generar-plan/<int:pk>/', generar_plan_pago, name='generar-plan'),
+    path('plan-pago/', planes_pago, name='plan-pago'),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('asegurado/', include('asegurado.urls')),
+    path('contrato/', include('contrato.urls')),
+    path('', AseguradoRedirect.as_view(), name='index'),
+]
+
+
+if settings.DEBUG:
+    from django.conf.urls.static import static
+
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL,
+                          document_root=settings.STATIC_ROOT)

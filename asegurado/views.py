@@ -1,16 +1,18 @@
-from django.shortcuts import render, redirect, resolve_url
+from django.urls import reverse_lazy
+from django.http import HttpRequest
+from django.shortcuts import render, redirect
 from .models import Asegurado, Persona
 from .forms import AseguradoForm
 
 # Create your views here.
 
 
-def asegurado_list(request):
+def asegurado_list(request: HttpRequest):
     asegurados = Asegurado.objects.all()
     return render(request, 'asegurado/asegurado_list.html', {'asegurados': asegurados})
 
 
-def crear_asegurado(request):
+def crear_asegurado(request: HttpRequest):
     if request.method == 'POST':
         form = AseguradoForm(request.POST, request.FILES)
         print(form.errors)
@@ -28,14 +30,14 @@ def crear_asegurado(request):
                 documento_identidad=form.cleaned_data['documento_identidad'],
                 parent=form.cleaned_data['parent']
             )
-            return redirect(resolve_url('asegurado-list'))
+            return redirect(reverse_lazy('asegurado-list'))
         return render(request, 'asegurado/asegurado_form.html', {'form': form})
     context = {'form': AseguradoForm()}
     return render(request, 'asegurado/asegurado_form.html', context)
 
 
-def actualizar_asegurado(request, asegurado_id: int):
-    asegurado = Asegurado.objects.filter(pk=asegurado_id).first()
+def actualizar_asegurado(request: HttpRequest, pk: int):
+    asegurado = Asegurado.objects.filter(pk=pk).first()
 
     if request.method == 'POST':
         request.FILES['foto'] = request.FILES.get('foto', asegurado.foto)
@@ -57,7 +59,7 @@ def actualizar_asegurado(request, asegurado_id: int):
             asegurado.documento_identidad = form.cleaned_data['documento_identidad']
             asegurado.parent = form.cleaned_data['parent']
             asegurado.save()
-            return redirect(resolve_url('asegurado-list'))
+            return redirect(reverse_lazy('asegurado-list'))
         return render(request, 'asegurado/asegurado_form.html', {'form': form, 'asegurado': asegurado})
 
     context = {
@@ -76,3 +78,14 @@ def actualizar_asegurado(request, asegurado_id: int):
         'asegurado': asegurado,
     }
     return render(request, 'asegurado/asegurado_form.html', context)
+
+
+def eliminar_asegurado(request: HttpRequest, pk: int):
+    asegurado = Asegurado.objects.filter(pk=pk).first()
+    if request.method == 'POST':
+        asegurado.delete()
+        return redirect(reverse_lazy('asegurado-list'))
+    context = {
+        'object': asegurado
+    }
+    return render(request, 'asegurado/asegurado_confirm_delete.html', context)

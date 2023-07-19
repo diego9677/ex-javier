@@ -40,20 +40,21 @@
                 <td>{{ asegurado.persona }}</td>
                 <td>{{ asegurado.fecha_nacimiento }}</td>
                 <td class="w-22">
-                    <a href="{{ asegurado.foto }}" class="flex justify-center">
-                        <img src="{{ asegurado.foto }}" alt="{{ asegurado.foto }}" width="40" height="40"
+                    <a href="{{ asegurado.foto.url }}" class="flex justify-center">
+                        <img src="{{ asegurado.foto.url }}" alt="{{ asegurado.foto }}" width="40" height="40"
                             class="rounded-md w-16 h-16">
                     </a>
                 </td>
                 <td class="w-22">
-                    <a href="{{ asegurado.certificado_nacimiento }}" class="flex justify-center">
-                        <img src="{{ asegurado.certificado_nacimiento }}" alt="{{ asegurado.certificado_nacimiento }}"
-                            width="40" height="40" class="rounded-md w-16 h-16">
+                    <a href="{{ asegurado.certificado_nacimiento.url }}" class="flex justify-center">
+                        <img src="{{ asegurado.certificado_nacimiento.url }}"
+                            alt="{{ asegurado.certificado_nacimiento }}" width="40" height="40"
+                            class="rounded-md w-16 h-16">
                     </a>
                 </td>
                 <td class="w-22">
-                    <a href="{{ asegurado.documento_identidad }}" class="flex justify-center">
-                        <img src="{{ asegurado.documento_identidad }}" alt="{{ asegurado.documento_identidad }}"
+                    <a href="{{ asegurado.documento_identidad.url }}" class="flex justify-center">
+                        <img src="{{ asegurado.documento_identidad.url }}" alt="{{ asegurado.documento_identidad }}"
                             width="40" height="40" class="rounded-md w-16 h-16">
                     </a>
                 </td>
@@ -64,13 +65,14 @@
                     --
                     {% endif %}
                 </td>
-                <td class="flex gap-2">
+                <td class="flex gap-2 w-16">
                     <a href="{% url 'asegurado-update' asegurado.pk %}"
-                        class="mt-2 flex-1 p-1 bg-green-600 hover:bg-opacity-70">
-                        E
+                        class="mt-2 flex-1 p-1 bg-green-600 hover:bg-opacity-70 text-white rounded-md">
+                        <i class="las la-pen la-lg"></i>
                     </a>
-                    <a class="mt-2 flex-1 p-1 bg-red-600 hover:bg-opacity-70">
-                        E
+                    <a href="{% url 'asegurado-delete' asegurado.pk %}"
+                        class="mt-2 flex-1 p-1 bg-red-600 hover:bg-opacity-70 text-white rounded-md">
+                        <i class="las la-trash-alt la-lg"></i>
                     </a>
                 </td>
             </tr>

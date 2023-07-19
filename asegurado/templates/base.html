@@ -7,9 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <script src="{% static 'tailwind/tailwind.js' %}"></script>
+    <link rel="stylesheet" href="{% static '1.3.0/css/line-awesome.min.css' %}">
     {% block head %}{% endblock %}
 </head>
 
@@ -20,20 +19,20 @@
             <h2 class="text-2xl font-semibold text-neutral-200 text-center mb-5">Clínica Santa Maria</h2>
             <div class="flex flex-col">
                 <a href="{% url 'asegurado-list' %}"
-                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if request.path == '/' %}bg-blue-600{% endif %}">
+                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if 'asegurado' in request.path %}bg-blue-600{% endif %}">
                     Asegurados
                 </a>
                 <a href="{% url 'contrato-list' %}"
-                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if request.path == '/contratos/' %}bg-blue-600{% endif %}">
+                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if  'contrato' in request.path %}bg-blue-600{% endif %}">
                     Contratos
                 </a>
-                <a href="{% url 'planes-pago' %}"
-                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if request.path == '/planes-pago/' %}bg-blue-600{% endif %}">
+                <a href="{% url 'plan-pago' %}"
+                    class="p-4 text-white hover:bg-blue-600 cursor-pointer flex gap-2 {% if 'plan' in request.path %}bg-blue-600{% endif %}">
                     Planes de pago
                 </a>
                 </ul>
         </section>
-        <section class="col-span-8 h-full">
+        <section class="col-span-8 h-full overflow-auto">
             {% block content %}{% endblock %}
         </section>
     </main>

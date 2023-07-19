@@ -1,6 +1,8 @@
 from django import forms
 from .models import Asegurado, Persona
 
+form_control = 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'
+
 
 class AseguradoForm(forms.Form):
     nombres = forms.CharField(
@@ -8,7 +10,7 @@ class AseguradoForm(forms.Form):
         label='Nombres',
         widget=forms.TextInput(
             attrs={
-                'class': 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'},
+                'class': form_control},
         )
     )
     apellidos = forms.CharField(
@@ -16,7 +18,7 @@ class AseguradoForm(forms.Form):
         label='Apellidos',
         widget=forms.TextInput(
             attrs={
-                'class': 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'},
+                'class': form_control},
         )
     )
     ci = forms.CharField(
@@ -24,16 +26,17 @@ class AseguradoForm(forms.Form):
         label='CI',
         widget=forms.TextInput(
             attrs={
-                'class': 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'},
+                'class': form_control},
         )
     )
 
     fecha_nacimiento = forms.DateField(
         label='Fecha Nacimiento',
         widget=forms.DateInput(
+            format=('%Y-%m-%d'),
             attrs={
                 'type': 'date',
-                'class': 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'
+                'class': form_control
             },
         )
     )
@@ -47,7 +50,7 @@ class AseguradoForm(forms.Form):
         queryset=Asegurado.objects.all(),
         widget=forms.Select(
             attrs={
-                'class': 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'}
+                'class': form_control}
         ),
         required=False
     )
