@@ -1,5 +1,6 @@
 from django import forms
-from .models import Asegurado, Persona
+from .models import Asegurado
+from contrato.models import Contrato
 
 form_control = 'rounded-md outline-none px-2 py-1 ring-1 ring-neutral-300 focus:ring-blue-600 focus:ring-2'
 
@@ -53,4 +54,11 @@ class AseguradoForm(forms.Form):
                 'class': form_control}
         ),
         required=False
+    )
+    contratos = forms.ModelMultipleChoiceField(
+        queryset=Contrato.objects.all(),
+        label='Contratos',
+        widget=forms.SelectMultiple(
+            attrs={'class': form_control}
+        )
     )

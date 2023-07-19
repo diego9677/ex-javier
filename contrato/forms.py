@@ -9,6 +9,7 @@ class ContratoForm(forms.ModelForm):
         model = Contrato
         fields = ('titulo', 'descripcion', 'precio_seguro',
                   'precio_dependiente', 'fecha_inicio', 'fecha_fin', 'estado',)
+    
         labels = {
             'titulo': 'Título',
             'descripcion': 'Descripción',
@@ -18,6 +19,7 @@ class ContratoForm(forms.ModelForm):
             'fecha_fin': 'Fecha Fin',
             'estado': 'Estado'
         }
+        
         widgets = {
             'titulo': forms.TextInput(attrs={'class': form_control}),
             'descripcion': forms.Textarea(attrs={'class': form_control, 'cols': 10, 'rows': 3}),

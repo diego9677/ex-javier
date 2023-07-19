@@ -28,7 +28,8 @@ def crear_asegurado(request: HttpRequest):
                 fecha_nacimiento=form.cleaned_data['fecha_nacimiento'],
                 certificado_nacimiento=form.cleaned_data['certificado_nacimiento'],
                 documento_identidad=form.cleaned_data['documento_identidad'],
-                parent=form.cleaned_data['parent']
+                parent=form.cleaned_data['parent'],
+                contratos=form.cleaned_data['contratos']
             )
             return redirect(reverse_lazy('asegurado-list'))
         return render(request, 'asegurado/asegurado_form.html', {'form': form})
@@ -58,6 +59,7 @@ def actualizar_asegurado(request: HttpRequest, pk: int):
             asegurado.certificado_nacimiento = form.cleaned_data['certificado_nacimiento']
             asegurado.documento_identidad = form.cleaned_data['documento_identidad']
             asegurado.parent = form.cleaned_data['parent']
+            # asegurado.contratos.set(form.cleaned_data['contratos'])
             asegurado.save()
             return redirect(reverse_lazy('asegurado-list'))
         return render(request, 'asegurado/asegurado_form.html', {'form': form, 'asegurado': asegurado})
