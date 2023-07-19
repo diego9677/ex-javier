@@ -19,6 +19,13 @@ class Contrato(models.Model):
 
 class PlanPago(models.Model):
     fecha_vencimiento = models.DateTimeField()
-    monto = models.DecimalField(max_digits=18, decimal_places=2)
+    monto = models.DecimalField(
+        max_digits=18,
+        decimal_places=2,
+    )
     contrato = models.ForeignKey(
-        Contrato, related_name='plan_pago', on_delete=models.SET_NULL, null=True)
+        Contrato,
+        related_name='plan_pago',
+        on_delete=models.SET_NULL,
+        null=True
+    )

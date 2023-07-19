@@ -19,14 +19,14 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 from asegurado.views import asegurado_list, crear_asegurado, actualizar_asegurado
-from contrato.views import contrato_list, planes_pago
+from contrato.views import ContratoListView, planes_pago
 
 urlpatterns = [
     path('', asegurado_list, name='asegurado-list'),
     path('asegurado-create/', crear_asegurado, name='asegurado-create'),
     path('asegurado-update/<int:asegurado_id>',
          actualizar_asegurado, name='asegurado-update'),
-    path('contratos/', contrato_list, name='contrato-list'),
+    path('contratos/', ContratoListView.as_view(), name='contrato-list'),
     path('planes-pago/', planes_pago, name='planes-pago'),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
